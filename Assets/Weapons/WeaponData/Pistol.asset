@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   weaponName: Pistol
-  weaponType: 1
+  weaponType: 0
   weaponSprite: {fileID: 21300000, guid: a20ae41d872e5ca48af40ab244907165, type: 3}
   bulletPrefab: {fileID: 4334086639020240795, guid: 969f93c40641b8a4a96bfc1a0cf37c93, type: 3}
   shootingSpeed: 40

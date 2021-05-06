@@ -21,4 +21,11 @@ public class WeaponManager : MonoBehaviour
         CurrentWeapon = (index < weapons.Count - 1) ? weapons[++index] : weapons[0];
         WeaponChanged?.Invoke(CurrentWeapon);
     }
+
+    public void PreviousWeapon()
+    {
+        var index = weapons.IndexOf(CurrentWeapon);
+        CurrentWeapon = (index != 0) ? weapons[--index] : weapons[weapons.Count - 1];
+        WeaponChanged?.Invoke(CurrentWeapon);
+    }
 }

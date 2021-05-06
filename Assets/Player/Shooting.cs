@@ -34,9 +34,14 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.mouseScrollDelta.y > 0)
         {
-            NextWeapon();
+            WeaponManager.Instance.NextWeapon();
+        }
+
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            WeaponManager.Instance.PreviousWeapon();
         }
     }
 
@@ -73,10 +78,5 @@ public class Shooting : MonoBehaviour
 
         yield return new WaitForSeconds(WeaponManager.Instance.CurrentWeapon.ShootingDelay);
         canMakeNextShot = true;
-    }
-
-    private void NextWeapon()
-    {
-        WeaponManager.Instance.NextWeapon();
     }
 }
