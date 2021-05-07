@@ -603,6 +603,7 @@ GameObject:
   - component: {fileID: 712652197}
   - component: {fileID: 712652194}
   - component: {fileID: 712652195}
+  - component: {fileID: 712652198}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -884,7 +885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hookPrefab: {fileID: 7173396011755948551, guid: 76a596e53d1f85d4bbcabd8be220ea04, type: 3}
   hookPoint: {fileID: 966450272}
-  throwingSpeed: 15
+  throwingSpeed: 20
   throwingDistance: 6
 --- !u!114 &712652197
 MonoBehaviour:
@@ -899,6 +900,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dyingSound: {fileID: 8300000, guid: 3f1869566a1ef6d41b26fada610fba2a, type: 3}
+--- !u!95 &712652198
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712652186}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88e7e11c54c2c4240afdf1c3296984d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &744707182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 83078863431655082, guid: 68699216cf31ab54db040a282ed4da14, type: 3}
