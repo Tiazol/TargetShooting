@@ -21,7 +21,10 @@ public class Moving : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var movement = movementDirection * movementSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + movement);
+        if (movementDirection.magnitude != 0)
+        {
+            var movement = movementDirection * movementSpeed * Time.fixedDeltaTime;
+            rb.MovePosition(rb.position + movement);
+        }
     }
 }

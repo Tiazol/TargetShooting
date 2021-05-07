@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Crate
+  - Island
   layers:
   - Default
   - TransparentFX
@@ -14,12 +15,12 @@ TagManager:
   - UI
   - 
   - 
-  - Bullet
-  - Target
+  - Bullets
+  - Targets
   - Player
   - Hook
   - Crates
-  - 
+  - Islands
   - 
   - 
   - 

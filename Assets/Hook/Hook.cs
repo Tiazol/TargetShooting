@@ -5,9 +5,12 @@ using UnityEngine;
 public class Hook : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private bool outOfIsland;
 
     public Transform SpawnPoint { get; set; }
     public float ThrowingSpeed { get; set; } = 1f;
+
+    public event System.Action NewIslandFound;
 
     private void Awake()
     {
@@ -33,11 +36,31 @@ public class Hook : MonoBehaviour
             rb.freezeRotation = true;
 
             collision.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            StartCoroutine(ReturnToSpawnPoint(collision));
+            StartCoroutine(BringCrateToSpawnPoint(collision));
         }
     }
 
-    private IEnumerator ReturnToSpawnPoint(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(TagManager.ISLAND_TAG))
+        {
+            if (outOfIsland)
+            {
+                Debug.Log("New Island!");
+                NewIslandFound?.Invoke();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(TagManager.ISLAND_TAG))
+        {
+            outOfIsland = true;
+        }
+    }
+
+    private IEnumerator BringCrateToSpawnPoint(Collision2D collision)
     {
         while (Vector3.Distance(SpawnPoint.position, transform.position) > 0.5f)
         {

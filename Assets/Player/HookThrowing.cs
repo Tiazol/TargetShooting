@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class HookThrowing : MonoBehaviour
 {
     [SerializeField] private GameObject hookPrefab;
     [SerializeField] private Transform hookPoint;
     [SerializeField] private float throwingSpeed = 20f;
+    private Rigidbody2D rb;
+    private Hook currentHook;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
@@ -17,10 +27,40 @@ public class HookThrowing : MonoBehaviour
     private void ThrowHook()
     {
         GameObject hookGameObject = Instantiate(hookPrefab, hookPoint.position, hookPoint.rotation, transform);
-        Hook hook = hookGameObject.GetComponent<Hook>();
-        hook.SpawnPoint = hookPoint;
-        hook.ThrowingSpeed = throwingSpeed;
+        currentHook = hookGameObject.GetComponent<Hook>();
+        currentHook.SpawnPoint = hookPoint;
+        currentHook.ThrowingSpeed = throwingSpeed;
+        currentHook.NewIslandFound += () => StartCoroutine(MoveToHookPosition());
 
         hookGameObject.GetComponent<Rigidbody2D>().AddForce(hookPoint.right * throwingSpeed, ForceMode2D.Impulse);
+    }
+
+    private IEnumerator MoveToHookPosition()
+    {
+        currentHook.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        var movingComponent = GetComponent<Moving>();
+        if (movingComponent != null)
+        {
+            movingComponent.enabled = false;
+        }
+
+        while (Vector3.Distance(currentHook.transform.position, transform.position) > 0.5f)
+        {
+            var direction = (currentHook.transform.position - transform.position).normalized;
+            rb.MovePosition(transform.position + direction * Time.fixedDeltaTime * throwingSpeed);
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        Destroy(currentHook.gameObject);
+        currentHook = null;
+
+        if (movingComponent != null)
+        {
+            movingComponent.enabled = true;
+        }
+
+        yield return null;
     }
 }

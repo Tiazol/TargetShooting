@@ -23,8 +23,8 @@ public class TargetSpawner : MonoBehaviour
 
             if (targetsCount < spawningLimit)
             {
-                var x = Random.Range(-GameField.Instance.HorizontalLimit, GameField.Instance.HorizontalLimit);
-                var y = Random.Range(-GameField.Instance.VerticalLimit, GameField.Instance.VerticalLimit);
+                var x = Random.Range(-Island.Instance.HorizontalLimit, Island.Instance.HorizontalLimit);
+                var y = Random.Range(-Island.Instance.VerticalLimit, Island.Instance.VerticalLimit);
                 var spawnPosition = new Vector3(x, y, 0);
 
                 var target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity, transform);

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class GameField : MonoBehaviour
+public class Island : MonoBehaviour
 {
-    public static GameField Instance { get; private set; }
+    public static Island Instance { get; private set; }
 
     public float HorizontalLimit { get; private set; }
     public float VerticalLimit { get; private set; }
