@@ -10,6 +10,8 @@ public class HookThrowing : MonoBehaviour
     [SerializeField] private float throwingSpeed = 20f;
     private Rigidbody2D rb;
     private Hook currentHook;
+    
+    public bool MovingToHookPosition { get; private set; }
 
     private void Awake()
     {
@@ -37,6 +39,8 @@ public class HookThrowing : MonoBehaviour
 
     private IEnumerator MoveToHookPosition()
     {
+        MovingToHookPosition = true;
+
         currentHook.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         var movingComponent = GetComponent<Moving>();
@@ -60,6 +64,8 @@ public class HookThrowing : MonoBehaviour
         {
             movingComponent.enabled = true;
         }
+
+        MovingToHookPosition = false;
 
         yield return null;
     }
