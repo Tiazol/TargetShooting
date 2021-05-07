@@ -2,18 +2,25 @@
 
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField] private int pointsLimit = 1000;
+
     public static ScoreManager Instance { get; private set; }
     public int Score
     {
         get => score;
         private set
         {
-            if (score < int.MaxValue)
+            if (score != value)
             {
-                score = value;
+                if (value >= 0 && value <= pointsLimit)
+                {
+                    score = value;
+                    ScoreChanged?.Invoke(Score);
+                }
             }
         }
     }
+
     public event System.Action<int> ScoreChanged;
 
     private int score;
@@ -26,6 +33,10 @@ public class ScoreManager : MonoBehaviour
     public void IncreaseScore()
     {
         Score++;
-        ScoreChanged?.Invoke(Score);
+    }
+
+    public void IncreaseScoreBy(int points)
+    {
+        Score += points;
     }
 }

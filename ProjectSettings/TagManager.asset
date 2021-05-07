@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Crate
   layers:
   - Default
   - TransparentFX
@@ -44,11 +45,17 @@ TagManager:
   - name: Background
     uniqueID: 108956013
     locked: 0
+  - name: Crates
+    uniqueID: 3644252955
+    locked: 0
   - name: Targets
     uniqueID: 1515676593
     locked: 0
   - name: Bullets
     uniqueID: 4046624615
+    locked: 0
+  - name: Hook
+    uniqueID: 3406117479
     locked: 0
   - name: Player
     uniqueID: 1980914417
