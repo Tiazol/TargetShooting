@@ -4,7 +4,7 @@ public class HookThrowing : MonoBehaviour
 {
     [SerializeField] private GameObject hookPrefab;
     [SerializeField] private Transform hookPoint;
-    [SerializeField] private float throwingSpeed = 1f;
+    [SerializeField] private float throwingSpeed = 20f;
 
     private void Update()
     {
@@ -16,7 +16,11 @@ public class HookThrowing : MonoBehaviour
 
     private void ThrowHook()
     {
-        GameObject hook = Instantiate(hookPrefab, hookPoint.position, hookPoint.rotation, transform);
-        hook.GetComponent<Rigidbody2D>().AddForce(hookPoint.right * throwingSpeed, ForceMode2D.Impulse);
+        GameObject hookGameObject = Instantiate(hookPrefab, hookPoint.position, hookPoint.rotation, transform);
+        Hook hook = hookGameObject.GetComponent<Hook>();
+        hook.SpawnPoint = hookPoint;
+        hook.ThrowingSpeed = throwingSpeed;
+
+        hookGameObject.GetComponent<Rigidbody2D>().AddForce(hookPoint.right * throwingSpeed, ForceMode2D.Impulse);
     }
 }
