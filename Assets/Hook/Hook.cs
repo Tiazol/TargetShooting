@@ -8,15 +8,20 @@ public class Hook : MonoBehaviour
     private GameObject lastIsland;
     private bool outOfIsland;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip hookSound;
+
     public Transform SpawnPoint { get; set; }
     public float ThrowingSpeed { get; set; } = 1f;
     public float ThrowingDistance { get; set; } = 3f;
 
     public event System.Action NewIslandFound;
+    public event System.Action Destroying;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -28,6 +33,14 @@ public class Hook : MonoBehaviour
         }
 
         rb.AddForce(SpawnPoint.right * ThrowingSpeed, ForceMode2D.Impulse);
+
+        if (audioSource != null)
+        {
+            if (hookSound != null)
+            {
+                audioSource.PlayOneShot(hookSound);
+            }
+        }
     }
 
     private void Update()
@@ -85,9 +98,8 @@ public class Hook : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        Destroying?.Invoke();
         Destroy(gameObject);
-
-        yield return null;
     }
 
     private IEnumerator BringCrateToSpawnPoint(Collision2D collision)
@@ -106,8 +118,7 @@ public class Hook : MonoBehaviour
         ScoreManager.Instance.IncreaseScoreBy(points);
 
         collision.gameObject.GetComponent<Crate>().Destroy();
+        Destroying?.Invoke();
         Destroy(gameObject);
-
-        yield return null;
     }
 }

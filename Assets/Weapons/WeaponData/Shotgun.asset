@@ -18,7 +18,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4334086639020240795, guid: 9cf7e8d643e24a443ac6eb9e8d626713, type: 3}
   shootingSpeed: 20
   shootingDamage: 50
-  shootingDelay: 1.5
+  shootingDelay: 0.7
   automatic: 0
   hasPellets: 1
   shotAudioClip: {fileID: 8300000, guid: 52bf0248dac85784a8da14703305efd5, type: 3}
