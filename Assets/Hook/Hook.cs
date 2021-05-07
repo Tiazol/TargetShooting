@@ -5,10 +5,12 @@ using UnityEngine;
 public class Hook : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private GameObject lastIsland;
     private bool outOfIsland;
 
     public Transform SpawnPoint { get; set; }
     public float ThrowingSpeed { get; set; } = 1f;
+    public float ThrowingDistance { get; set; } = 3f;
 
     public event System.Action NewIslandFound;
 
@@ -28,6 +30,14 @@ public class Hook : MonoBehaviour
         rb.AddForce(SpawnPoint.right * ThrowingSpeed, ForceMode2D.Impulse);
     }
 
+    private void Update()
+    {
+        if (Vector3.Distance(SpawnPoint.transform.position, transform.position) > ThrowingDistance)
+        {
+            StartCoroutine(ReturnToSpawnPoint());
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag(TagManager.CRATE_TAG))
@@ -44,9 +54,14 @@ public class Hook : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(TagManager.ISLAND_TAG))
         {
-            if (outOfIsland)
+            if (lastIsland == null)
             {
-                Debug.Log("New Island!");
+                lastIsland = collision.gameObject;
+            }
+
+            if (outOfIsland && lastIsland != collision.gameObject)
+            {
+                lastIsland = collision.gameObject;
                 NewIslandFound?.Invoke();
             }
         }
@@ -58,6 +73,21 @@ public class Hook : MonoBehaviour
         {
             outOfIsland = true;
         }
+    }
+
+    private IEnumerator ReturnToSpawnPoint()
+    {
+        while (Vector3.Distance(SpawnPoint.position, transform.position) > 0.5f)
+        {
+            var direction = (SpawnPoint.position - transform.position).normalized;
+            rb.MovePosition(transform.position + direction * Time.fixedDeltaTime * ThrowingSpeed);
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        Destroy(gameObject);
+
+        yield return null;
     }
 
     private IEnumerator BringCrateToSpawnPoint(Collision2D collision)

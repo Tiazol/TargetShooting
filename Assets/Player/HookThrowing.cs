@@ -8,6 +8,7 @@ public class HookThrowing : MonoBehaviour
     [SerializeField] private GameObject hookPrefab;
     [SerializeField] private Transform hookPoint;
     [SerializeField] private float throwingSpeed = 20f;
+    [SerializeField] private float throwingDistance = 3f;
     private Rigidbody2D rb;
     private Hook currentHook;
     
@@ -32,6 +33,7 @@ public class HookThrowing : MonoBehaviour
         currentHook = hookGameObject.GetComponent<Hook>();
         currentHook.SpawnPoint = hookPoint;
         currentHook.ThrowingSpeed = throwingSpeed;
+        currentHook.ThrowingDistance = throwingDistance;
         currentHook.NewIslandFound += () => StartCoroutine(MoveToHookPosition());
 
         hookGameObject.GetComponent<Rigidbody2D>().AddForce(hookPoint.right * throwingSpeed, ForceMode2D.Impulse);
@@ -59,13 +61,13 @@ public class HookThrowing : MonoBehaviour
 
         Destroy(currentHook.gameObject);
         currentHook = null;
+        MovingToHookPosition = false;
+        rb.velocity = Vector2.zero;
 
         if (movingComponent != null)
         {
             movingComponent.enabled = true;
         }
-
-        MovingToHookPosition = false;
 
         yield return null;
     }

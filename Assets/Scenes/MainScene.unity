@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 712652191}
   - component: {fileID: 712652192}
   - component: {fileID: 712652196}
+  - component: {fileID: 712652197}
   - component: {fileID: 712652194}
   - component: {fileID: 712652195}
   m_Layer: 10
@@ -1120,6 +1121,19 @@ MonoBehaviour:
   hookPrefab: {fileID: 7173396011755948551, guid: 76a596e53d1f85d4bbcabd8be220ea04, type: 3}
   hookPoint: {fileID: 966450272}
   throwingSpeed: 20
+  throwingDistance: 6
+--- !u!114 &712652197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712652186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba706e4de642ff45bcc9f84f4e9c77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &736892601
 PrefabInstance:
   m_ObjectHideFlags: 0
