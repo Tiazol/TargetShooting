@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetSpawner : MonoBehaviour
@@ -23,8 +22,9 @@ public class TargetSpawner : MonoBehaviour
 
             if (targetsCount < spawningLimit)
             {
-                var x = Random.Range(-Island.Instance.HorizontalLimit, Island.Instance.HorizontalLimit);
-                var y = Random.Range(-Island.Instance.VerticalLimit, Island.Instance.VerticalLimit);
+                var limits = IslandsManager.Instance.GetRandomIslandLimits();
+                var x = Random.Range(limits.Item1.x, limits.Item2.x);
+                var y = Random.Range(limits.Item1.y, limits.Item2.y);
                 var spawnPosition = new Vector3(x, y, 0);
 
                 var target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity, transform);

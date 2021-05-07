@@ -7,8 +7,9 @@ public class Crate : MonoBehaviour
     public int Points => points;
     public event System.Action Destroying;
 
-    private void OnDestroy()
+    public void Destroy()
     {
         Destroying?.Invoke();
+        Destroy(gameObject);
     }
 }

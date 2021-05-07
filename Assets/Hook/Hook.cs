@@ -105,7 +105,7 @@ public class Hook : MonoBehaviour
         var points = collision.gameObject.GetComponent<Crate>().Points;
         ScoreManager.Instance.IncreaseScoreBy(points);
 
-        Destroy(collision.gameObject);
+        collision.gameObject.GetComponent<Crate>().Destroy();
         Destroy(gameObject);
 
         yield return null;

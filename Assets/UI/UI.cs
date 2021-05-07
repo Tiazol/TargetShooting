@@ -16,7 +16,6 @@ public class UI : MonoBehaviour
         CratesText.text = $"Crates: 0/{CratesManager.Instance.TotalCount}";
     }
 
-
     private void OnScoreChanged(int score)
     {
         PointsText.text = $"Points: {score}";
