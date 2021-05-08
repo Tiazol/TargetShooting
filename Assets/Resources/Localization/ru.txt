@@ -1,0 +1,7 @@
+language=Russian
+pause=Пауза
+english=Английский
+russian=Русский
+points=Очки
+crates=Ящики
+controls=WASD - ходить$ЛКМ - стрелять$ПКМ - использовать крюк$Колесо мыши - менять оружие$ESC - пауза/продолжить

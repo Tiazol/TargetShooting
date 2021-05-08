@@ -22,12 +22,15 @@ public class HookThrowing : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (!PauseManager.Instance.IsPaused)
         {
-            if (canThrow)
+            if (Input.GetMouseButtonDown(1))
             {
-                ThrowHook(); 
-            }
+                if (canThrow)
+                {
+                    ThrowHook();
+                }
+            } 
         }
     }
 

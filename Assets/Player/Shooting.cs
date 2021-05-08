@@ -9,6 +9,14 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
+        if (!PauseManager.Instance.IsPaused)
+        {
+            CheckInput(); 
+        }
+    }
+
+    private void CheckInput()
+    {
         if (canMakeNextShot)
         {
             if (WeaponManager.Instance.CurrentWeapon.Automatic)

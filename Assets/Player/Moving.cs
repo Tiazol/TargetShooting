@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Moving : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
@@ -17,8 +17,11 @@ public class Moving : MonoBehaviour
 
     private void Update()
     {
-        movementDirection.x = Input.GetAxisRaw("Horizontal");
-        movementDirection.y = Input.GetAxisRaw("Vertical");
+        if (!PauseManager.Instance.IsPaused)
+        {
+            movementDirection.x = Input.GetAxisRaw("Horizontal");
+            movementDirection.y = Input.GetAxisRaw("Vertical"); 
+        }
     }
 
     private void FixedUpdate()

@@ -1,0 +1,7 @@
+language=English
+pause=Pause
+english=English
+russian=Russian
+points=Points
+crates=Crates
+controls=WASD - move$LMB - shoot$RMB - use hook$Mouse scroll - change weapon$ESC - pause/unpause
