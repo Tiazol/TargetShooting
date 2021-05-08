@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefab: {fileID: 6222479355490356363, guid: 34f7bcfa17ef63d4290cf48d1d18e224, type: 3}
-  spawningTime: 0.58
+  spawningTime: 1
   spawningLimit: 7
 --- !u!1001 &913015625
 PrefabInstance:
