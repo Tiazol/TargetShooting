@@ -19,22 +19,23 @@ public class Moving : MonoBehaviour
     {
         if (!PauseManager.Instance.IsPaused)
         {
-            movementDirection.x = Input.GetAxisRaw("Horizontal");
-            movementDirection.y = Input.GetAxisRaw("Vertical"); 
+            movementDirection.x = Input.GetAxis("Horizontal");
+            movementDirection.y = Input.GetAxis("Vertical"); 
         }
     }
 
     private void FixedUpdate()
     {
+        Debug.Log(movementDirection.magnitude);
         if (movementDirection.magnitude != 0)
         {
-            animator.SetBool("Walking", true);
-            var movement = movementDirection * movementSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(rb.position + movement);
+            animator.SetBool(AnimationParameters.CHARACTER_WALKING, true);
+            rb.AddForce(movementDirection * movementSpeed);
         }
         else
         {
-            animator.SetBool("Walking", false);
+            animator.SetBool(AnimationParameters.CHARACTER_WALKING, false);
+            rb.velocity = Vector2.zero;
         }
     }
 }
