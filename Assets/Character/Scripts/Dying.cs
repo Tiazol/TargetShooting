@@ -18,7 +18,7 @@ public class Dying : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(TagManager.ISLAND_TAG))
+        if (collision.gameObject.CompareTag(Tags.ISLAND_TAG))
         {
             if (!hookThrowing.MovingToHookPosition)
             {

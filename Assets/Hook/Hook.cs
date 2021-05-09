@@ -53,7 +53,7 @@ public class Hook : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(TagManager.CRATE_TAG))
+        if (collision.gameObject.CompareTag(Tags.CRATE_TAG))
         {
             rb.rotation = SpawnPoint.rotation.eulerAngles.z;
             rb.freezeRotation = true;
@@ -65,7 +65,7 @@ public class Hook : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(TagManager.ISLAND_TAG))
+        if (collision.gameObject.CompareTag(Tags.ISLAND_TAG))
         {
             if (lastIsland == null)
             {
@@ -82,7 +82,7 @@ public class Hook : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(TagManager.ISLAND_TAG))
+        if (collision.gameObject.CompareTag(Tags.ISLAND_TAG))
         {
             outOfIsland = true;
         }
