@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Shooting : MonoBehaviour
 {
     [SerializeField] private Transform weaponPoint;

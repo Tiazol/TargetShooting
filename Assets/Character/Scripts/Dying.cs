@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(HookThrowing))]
+[RequireComponent(typeof(Rigidbody2D), typeof(HookThrowing))]
 public class Dying : MonoBehaviour
 {
     private Rigidbody2D rb;
     private HookThrowing hookThrowing;
+
     private AudioSource audioSource;
     [SerializeField] private AudioClip dyingSound;
 

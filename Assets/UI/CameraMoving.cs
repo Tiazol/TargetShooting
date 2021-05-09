@@ -12,8 +12,8 @@ public class CameraMoving : MonoBehaviour
 
     private void LateUpdate()
     {
-        var x = Player.Instance.transform.position.x;
-        var y = Player.Instance.transform.position.y;
+        var x = Character.Instance.transform.position.x;
+        var y = Character.Instance.transform.position.y;
         var z = mainCamera.transform.position.z;
 
         var currentPosition = transform.position;

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class TargetSpawner : MonoBehaviour
+public class TargetsSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject targetPrefab;
     [SerializeField, Range(0.5f, 3f)] private float spawningTime = 1f;

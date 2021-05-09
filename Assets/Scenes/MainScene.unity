@@ -1525,7 +1525,7 @@ GameObject:
   - component: {fileID: 712652195}
   - component: {fileID: 712652198}
   m_Layer: 10
-  m_Name: Player
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefab: {fileID: 6222479355490356363, guid: 34f7bcfa17ef63d4290cf48d1d18e224, type: 3}
-  spawningTime: 1
+  spawningTime: 0.7
   spawningLimit: 7
 --- !u!1001 &913015625
 PrefabInstance:
