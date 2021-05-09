@@ -7,8 +7,10 @@ public class HookThrowing : MonoBehaviour
 {
     [SerializeField] private GameObject hookPrefab;
     [SerializeField] private Transform hookPoint;
-    [SerializeField] private float throwingSpeed = 20f;
-    [SerializeField] private float throwingDistance = 3f;
+    [SerializeField, Range(10f, 30f)] private float throwingSpeed = 20f;
+    [SerializeField, Range(1f, 10f)] private float throwingDistance = 3f;
+    [SerializeField, Range(1f, 30f)] private float movingToHookSpeed = 10f;
+    [SerializeField, Range(1f, 10f)] private float movingToHookDirectionMultiplayer = 1.3f;
     private Rigidbody2D rb;
     private Hook currentHook;
     private bool canThrow = true;
@@ -61,10 +63,15 @@ public class HookThrowing : MonoBehaviour
             movingComponent.enabled = false;
         }
 
-        while (Vector3.Distance(currentHook.transform.position, transform.position) > 0.5f)
+        var initialMovingDirection = currentHook.transform.position - transform.position;
+        var multipliedMovingDirection = initialMovingDirection * movingToHookDirectionMultiplayer;
+        var targetPosition = transform.position + multipliedMovingDirection;
+
+
+        while ((targetPosition - transform.position).magnitude > 0.5f)
         {
-            var direction = (currentHook.transform.position - transform.position).normalized;
-            rb.MovePosition(transform.position + direction * Time.fixedDeltaTime * throwingSpeed);
+            var direction = (targetPosition - transform.position).normalized;
+            rb.AddForce(direction * movingToHookSpeed, ForceMode2D.Impulse);
 
             yield return new WaitForFixedUpdate();
         }

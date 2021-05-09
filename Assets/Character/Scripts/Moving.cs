@@ -26,7 +26,6 @@ public class Moving : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(movementDirection.magnitude);
         if (movementDirection.magnitude != 0)
         {
             animator.SetBool(AnimationParameters.CHARACTER_WALKING, true);

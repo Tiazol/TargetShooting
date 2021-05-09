@@ -6,7 +6,8 @@ public class Hook : MonoBehaviour
 {
     private Rigidbody2D rb;
     private GameObject lastIsland;
-    private bool outOfIsland;
+    private bool isOutOfIsland;
+    private bool isNewIslandFound;
 
     private AudioSource audioSource;
     [SerializeField] private AudioClip hookSound;
@@ -47,7 +48,10 @@ public class Hook : MonoBehaviour
     {
         if (Vector3.Distance(SpawnPoint.transform.position, transform.position) > ThrowingDistance)
         {
-            StartCoroutine(ReturnToSpawnPoint());
+            if (!isNewIslandFound)
+            {
+                StartCoroutine(ReturnToSpawnPoint()); 
+            }
         }
     }
 
@@ -70,11 +74,13 @@ public class Hook : MonoBehaviour
             if (lastIsland == null)
             {
                 lastIsland = collision.gameObject;
+                isOutOfIsland = false;
             }
 
-            if (outOfIsland && lastIsland != collision.gameObject)
+            if (isOutOfIsland && (lastIsland != collision.gameObject))
             {
                 lastIsland = collision.gameObject;
+                isNewIslandFound = true;
                 NewIslandFound?.Invoke();
             }
         }
@@ -84,7 +90,7 @@ public class Hook : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Tags.ISLAND_TAG))
         {
-            outOfIsland = true;
+            isOutOfIsland = true;
         }
     }
 
