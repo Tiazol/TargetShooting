@@ -1,13 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystem), typeof(SpriteRenderer))]
 public class Target : MonoBehaviour
 {
-    public event System.Action Destroyed;
+    ParticleSystem particles;
+    SpriteRenderer spriteRenderer;
 
-    private void OnDestroy()
+    public event System.Action Destroying;
+
+    private void Awake()
     {
-        Destroyed?.Invoke();
+        particles = GetComponent<ParticleSystem>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void Destroy()
+    {
+        spriteRenderer.enabled = false;
+        particles.Play();
+        Destroying?.Invoke();
+        Destroy(gameObject, particles.main.duration + particles.main.startLifetimeMultiplier);
     }
 }

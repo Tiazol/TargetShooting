@@ -28,7 +28,7 @@ public class TargetsSpawner : MonoBehaviour
                 var spawnPosition = new Vector3(x, y, 0);
 
                 var target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity, transform);
-                target.GetComponent<Target>().Destroyed += () => targetsCount--;
+                target.GetComponent<Target>().Destroying += () => targetsCount--;
                 targetsCount++;
             }
         }

@@ -11,8 +11,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        ScoreManager.Instance.IncreaseScore();
-        Destroy(collision.gameObject);
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag(Tags.TARGET_TAG))
+        {
+            ScoreManager.Instance.IncreaseScore();
+            collision.gameObject.GetComponent<Target>().Destroy();
+            Destroy(gameObject); 
+        }
     }
 }
