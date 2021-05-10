@@ -5,3 +5,4 @@ russian=Russian
 points=Points
 crates=Crates
 controls=WASD - move$LMB - shoot$RMB - use hook$Mouse scroll - change weapon$ESC - pause/unpause
+quit=Quit
