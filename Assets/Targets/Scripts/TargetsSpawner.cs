@@ -35,7 +35,7 @@ public class TargetsSpawner : MonoBehaviour
                 var x = Random.Range(islandBounds.min.x, islandBounds.max.x);
                 var y = Random.Range(islandBounds.min.y, islandBounds.max.y);
                 var spawnPosition = new Vector3(x, y, 0);
-                Debug.Log(targetsCount);
+                
                 var target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity, transform);
                 target.GetComponent<Target>().Destroying += () => targetsCount--;
                 targetsCount++;
