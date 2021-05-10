@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    [SerializeField] private Text PointsValueText;
-    [SerializeField] private Text CratesValueText;
-    [SerializeField] private Image WeaponImage;
-    [SerializeField] private GameObject PauseMenuPanel;
+    [SerializeField] private Text pointsValueText;
+    [SerializeField] private Text cratesValueText;
+    [SerializeField] private Image weaponImage;
+    [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private CratesCounter cratesCounter;
-    [SerializeField] private Dropdown LocalizationDropdown;
+    [SerializeField] private Dropdown localizationDropdown;
     [SerializeField] private Button quitButton;
 
     private void Start()
@@ -16,7 +16,7 @@ public class UI : MonoBehaviour
         ScoreManager.Instance.ScoreChanged += OnScoreChanged;
 
         WeaponManager.Instance.WeaponChanged += OnWeaponChanged;
-        WeaponImage.sprite = WeaponManager.Instance.CurrentWeapon.Sprite;
+        weaponImage.sprite = WeaponManager.Instance.CurrentWeapon.Sprite;
 
         if (cratesCounter == null)
         {
@@ -25,38 +25,40 @@ public class UI : MonoBehaviour
         else
         {
             cratesCounter.CurrentCountChanged += OnCratesCountChanged;
-            CratesValueText.text = $"0/{cratesCounter.TotalCount}";
+            cratesValueText.text = $"0/{cratesCounter.TotalCount}";
         }
 
         PauseManager.Paused += OnPaused;
-        PauseMenuPanel.SetActive(false);
+        pauseMenuPanel.SetActive(false);
 
-        LocalizationDropdown.onValueChanged.AddListener(value => OnLocalizationDropdownValueChanged(value));
+        localizationDropdown.onValueChanged.AddListener(OnLocalizationDropdownValueChanged);
+
+        quitButton.onClick.AddListener(OnQuitButtonClick);
     }
 
     private void OnScoreChanged(int score)
     {
-        PointsValueText.text = $"{score}";
+        pointsValueText.text = $"{score}";
     }
 
     private void OnWeaponChanged(WeaponData weapon)
     {
-        WeaponImage.sprite = weapon.Sprite;
+        weaponImage.sprite = weapon.Sprite;
     }
 
     private void OnCratesCountChanged(int currentCount)
     {
-        CratesValueText.text = $"{currentCount}/{cratesCounter.TotalCount}";
+        cratesValueText.text = $"{currentCount}/{cratesCounter.TotalCount}";
     }
 
     private void OnPaused(bool paused)
     {
-        PauseMenuPanel.SetActive(paused);
+        pauseMenuPanel.SetActive(paused);
     }
 
     private void OnLocalizationDropdownValueChanged(int value)
     {
-        var language = LocalizationDropdown.options[value].text;
+        var language = localizationDropdown.options[value].text;
         LocalizationManager.Instance.SetLocalization(language);
     }
 
