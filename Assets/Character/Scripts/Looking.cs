@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-    public class Looking : MonoBehaviour
+public class Looking : MonoBehaviour
 {
     private Camera mainCamera;
     private Rigidbody2D rb;

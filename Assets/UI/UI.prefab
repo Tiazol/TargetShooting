@@ -1451,6 +1451,7 @@ MonoBehaviour:
   CratesValueText: {fileID: 2218885985459386926}
   WeaponImage: {fileID: 2218885985963756321}
   PauseMenuPanel: {fileID: 2218885986167442629}
+  cratesCounter: {fileID: 0}
   LocalizationDropdown: {fileID: 2218885985098845671}
 --- !u!1 &2218885986281283238
 GameObject:

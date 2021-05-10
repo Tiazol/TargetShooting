@@ -7,7 +7,7 @@ public class UI : MonoBehaviour
     [SerializeField] private Text CratesValueText;
     [SerializeField] private Image WeaponImage;
     [SerializeField] private GameObject PauseMenuPanel;
-
+    [SerializeField] private CratesCounter cratesCounter;
     [SerializeField] private Dropdown LocalizationDropdown;
 
     private void Start()
@@ -17,10 +17,17 @@ public class UI : MonoBehaviour
         WeaponManager.Instance.WeaponChanged += OnWeaponChanged;
         WeaponImage.sprite = WeaponManager.Instance.CurrentWeapon.Sprite;
 
-        CratesManager.Instance.CurrentCountChanged += OnCratesCountChanged;
-        CratesValueText.text = $"0/{CratesManager.Instance.TotalCount}";
+        if (cratesCounter == null)
+        {
+            Debug.LogWarning($"Warning: {typeof(CratesCounter)} not found", this);
+        }
+        else
+        {
+            cratesCounter.CurrentCountChanged += OnCratesCountChanged;
+            CratesValueText.text = $"0/{cratesCounter.TotalCount}";
+        }
 
-        PauseManager.Instance.Paused += OnPaused;
+        PauseManager.Paused += OnPaused;
         PauseMenuPanel.SetActive(false);
 
         LocalizationDropdown.onValueChanged.AddListener(value => OnLocalizationDropdownValueChanged(value));
@@ -38,7 +45,7 @@ public class UI : MonoBehaviour
 
     private void OnCratesCountChanged(int currentCount)
     {
-        CratesValueText.text = $"{currentCount}/{CratesManager.Instance.TotalCount}";
+        CratesValueText.text = $"{currentCount}/{cratesCounter.TotalCount}";
     }
 
     private void OnPaused(bool paused)

@@ -10,7 +10,7 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if (!PauseManager.Instance.IsPaused)
+        if (!PauseManager.IsPaused)
         {
             CheckInput(); 
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -24,7 +23,7 @@ public class HookThrowing : MonoBehaviour
 
     private void Update()
     {
-        if (!PauseManager.Instance.IsPaused)
+        if (!PauseManager.IsPaused)
         {
             if (Input.GetMouseButtonDown(1))
             {

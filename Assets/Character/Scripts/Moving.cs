@@ -17,7 +17,7 @@ public class Moving : MonoBehaviour
 
     private void Update()
     {
-        if (!PauseManager.Instance.IsPaused)
+        if (!PauseManager.IsPaused)
         {
             movementDirection.x = Input.GetAxis("Horizontal");
             movementDirection.y = Input.GetAxis("Vertical"); 

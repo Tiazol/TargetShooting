@@ -6,13 +6,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (PauseManager.Instance.IsPaused)
+            if (PauseManager.IsPaused)
             {
-                PauseManager.Instance.Unpause();
+                PauseManager.Unpause();
             }
             else
             {
-                PauseManager.Instance.Pause();
+                PauseManager.Pause();
             }
         }
     }

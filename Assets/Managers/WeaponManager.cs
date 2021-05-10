@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] private List<WeaponData> weapons;
-
     public static WeaponManager Instance { get; private set; }
     public WeaponData CurrentWeapon { get; private set; }
     public event System.Action<WeaponData> WeaponChanged;
+
+    [SerializeField] private List<WeaponData> weapons;
 
     private void Awake()
     {
