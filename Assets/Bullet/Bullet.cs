@@ -13,9 +13,13 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Tags.TARGET_TAG))
         {
-            ScoreManager.Instance.IncreaseScore();
-            collision.gameObject.GetComponent<Target>().Destroy();
-            Destroy(gameObject); 
+            var target = collision.gameObject.GetComponent<Target>();
+            if (!target.IsDestroying)
+            {
+                ScoreManager.Instance.IncreaseScore();
+                collision.gameObject.GetComponent<Target>().Destroy();
+                Destroy(gameObject);
+            }
         }
     }
 }

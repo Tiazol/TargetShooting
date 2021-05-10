@@ -3,9 +3,11 @@
 [RequireComponent(typeof(ParticleSystem), typeof(SpriteRenderer), typeof(Collider2D))]
 public class Target : MonoBehaviour
 {
-    ParticleSystem particles;
-    SpriteRenderer spriteRenderer;
-    Collider2D collider2d;
+    public bool IsDestroying { get; private set; }
+
+    private ParticleSystem particles;
+    private SpriteRenderer spriteRenderer;
+    private Collider2D collider2d;
 
     public event System.Action Destroying;
 
@@ -18,10 +20,11 @@ public class Target : MonoBehaviour
 
     public void Destroy()
     {
+        IsDestroying = true;
         spriteRenderer.enabled = false;
         collider2d.enabled = false;
-        particles.Play();
         Destroying?.Invoke();
+        particles.Play();
         Destroy(gameObject, particles.main.duration + particles.main.startLifetimeMultiplier);
     }
 }
