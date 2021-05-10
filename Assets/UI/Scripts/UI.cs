@@ -9,6 +9,7 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject PauseMenuPanel;
     [SerializeField] private CratesCounter cratesCounter;
     [SerializeField] private Dropdown LocalizationDropdown;
+    [SerializeField] private Button quitButton;
 
     private void Start()
     {
@@ -57,5 +58,10 @@ public class UI : MonoBehaviour
     {
         var language = LocalizationDropdown.options[value].text;
         LocalizationManager.Instance.SetLocalization(language);
+    }
+
+    private void OnQuitButtonClick()
+    {
+        Application.Quit();
     }
 }
