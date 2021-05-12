@@ -1,7 +1,7 @@
 # TargetShooter
 
 ## ENG
-A demo project made in Unity 2020.1.17 inspired by [Black Skylands](https://store.steampowered.com/app/1143810/Black_Skylands/) videogame from Hungry Coach Games studio.
+A demo project made in Unity 2020.1.17 inspired by [Black Skylands](https://store.steampowered.com/app/1143810/Black_Skylands/) videogame from Hungry Couch Games studio.
 ### Controls
 WASD - move  
 LMB - shoot  
@@ -13,7 +13,7 @@ The main character moves around the islands using a hook. On the islands, target
 Also on the islands there are boxes that character can grab and pull to himself with a hook. Boxes give extra points.  
 The game has a pause menu where you can choose between English and Russian localizations.
 ## RUS
-Демо-проект, сделанный в Unity 2020.1.17, вдохновлённый игрой [Black Skylands](https://store.steampowered.com/app/1143810/Black_Skylands/) от студии Hungry Coach Games.
+Демо-проект, сделанный в Unity 2020.1.17, вдохновлённый игрой [Black Skylands](https://store.steampowered.com/app/1143810/Black_Skylands/) от студии Hungry Couch Games.
 ### Управление
 WASD - ходить  
 ЛКМ - стрелять  
