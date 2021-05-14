@@ -62,6 +62,7 @@ public class Shooting : MonoBehaviour
         GameObject bulletPrefab = WeaponManager.Instance.CurrentWeapon.BulletPrefab;
         GameObject bullet = Instantiate(bulletPrefab, weaponPoint.position, weaponPoint.rotation, weaponPoint);
         float speed = WeaponManager.Instance.CurrentWeapon.ShootingSpeed;
+        bullet.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
         bullet.GetComponent<Rigidbody2D>().AddForce(weaponPoint.right * speed, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(WeaponManager.Instance.CurrentWeapon.ShootingDelay);
@@ -84,6 +85,11 @@ public class Shooting : MonoBehaviour
         bullet2.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, -10) * weaponPoint.right * speed, ForceMode2D.Impulse);
         bullet3.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, 10) * weaponPoint.right * speed, ForceMode2D.Impulse);
         bullet4.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, 30) * weaponPoint.right * speed, ForceMode2D.Impulse);
+
+        bullet1.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
+        bullet2.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
+        bullet3.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
+        bullet4.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
 
         yield return new WaitForSeconds(WeaponManager.Instance.CurrentWeapon.ShootingDelay);
         canMakeNextShot = true;

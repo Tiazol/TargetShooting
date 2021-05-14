@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem), typeof(SpriteRenderer), typeof(Collider2D))]
-public class Target : MonoBehaviour
+public class Target : MonoBehaviour, IDestroyable
 {
     public bool IsDestroying { get; private set; }
 
@@ -18,7 +18,7 @@ public class Target : MonoBehaviour
         collider2d = GetComponent<Collider2D>();
     }
 
-    public void Destroy()
+    public void DestroySelf()
     {
         IsDestroying = true;
         spriteRenderer.enabled = false;

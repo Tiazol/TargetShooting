@@ -2,6 +2,8 @@
 
 public class Bullet : MonoBehaviour
 {
+    public float Damage { get; set; } = 100f;
+
     [SerializeField, Range(0.1f, 10f)] private float destroyTime = 1f;
 
     private void Start()
@@ -14,10 +16,11 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag(Tags.TARGET_TAG))
         {
             var target = collision.gameObject.GetComponent<Target>();
+            var health = target.GetComponent<Health>();
             if (!target.IsDestroying)
             {
                 ScoreManager.Instance.IncreaseScore();
-                collision.gameObject.GetComponent<Target>().Destroy();
+                health.CurrentValue -= Damage;
                 Destroy(gameObject);
             }
         }
