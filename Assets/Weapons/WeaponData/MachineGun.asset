@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponSprite: {fileID: 21300000, guid: 70b2e4ab47e2f6e4cbf552669a98e4d5, type: 3}
   bulletPrefab: {fileID: 4334086639020240795, guid: 8a1888440934bfa478ea4b7827bf8d59, type: 3}
   shootingSpeed: 50
-  shootingDamage: 10
+  shootingDamage: 20
   shootingDelay: 0.1
   automatic: 1
   hasPellets: 0

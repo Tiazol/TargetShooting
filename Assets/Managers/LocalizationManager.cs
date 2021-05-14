@@ -34,9 +34,9 @@ public class LocalizationManager : MonoBehaviour
             var dictionary = new Dictionary<string, string>();
             for (int i = 1; i < lines.Length; i++)
             {
-                var key = lines[i].Split('=')[0];
-                var value = lines[i].Split('=')[1];
-                value = value.Replace(ENDLINE_REPLACEMENT, "\r\n");
+                var splitResult = lines[i].Split('=');
+                var key = splitResult[0];
+                var value = splitResult[1].Replace(ENDLINE_REPLACEMENT, "\r\n");
                 dictionary.Add(key, value);
             }
 

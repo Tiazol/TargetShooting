@@ -19,7 +19,7 @@ public class WeaponData : ScriptableObject
     public Sprite Sprite => weaponSprite;
     public GameObject BulletPrefab => bulletPrefab;
     public float ShootingSpeed => shootingSpeed;
-    public float ShootingDamage => ShootingDamage;
+    public float ShootingDamage => shootingDamage;
     public bool Automatic => automatic;
     public float ShootingDelay => shootingDelay;
     public bool HasPellets => hasPellets;

@@ -1,12 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField, Range(0.1f, 10f)] private float destroyTime = 1f;
+    public float Damage { get; set; } = 100f;
+    public float Speed { get; set; } = 1f;
+    public BulletsHolder Holder { get; set; }
+    public event System.Action CollisionEntered;
 
-    private void Start()
+    [SerializeField, Range(0.1f, 10f)] private float returnTime = 1f;
+    [SerializeField] private Rigidbody2D rb;
+
+    private void OnEnable()
     {
-        Destroy(gameObject, destroyTime);
+        StartCoroutine(ReturnToHolder());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -14,12 +22,24 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag(Tags.TARGET_TAG))
         {
             var target = collision.gameObject.GetComponent<Target>();
+            var health = target.GetComponent<Health>();
             if (!target.IsDestroying)
             {
-                ScoreManager.Instance.IncreaseScore();
-                collision.gameObject.GetComponent<Target>().Destroy();
-                Destroy(gameObject);
+                health.CurrentValue -= Damage;
+                CollisionEntered?.Invoke();
             }
+            Holder.ReturnBulletToHolder(this);
         }
+    }
+
+    private IEnumerator ReturnToHolder()
+    {
+        yield return new WaitForSeconds(returnTime);
+        Holder.ReturnBulletToHolder(this);
+    }
+
+    public void Run(Vector2 direction)
+    {
+        rb.AddForce(direction * Speed, ForceMode2D.Impulse);
     }
 }

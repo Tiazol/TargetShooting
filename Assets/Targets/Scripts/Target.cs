@@ -1,30 +1,67 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 
-[RequireComponent(typeof(ParticleSystem), typeof(SpriteRenderer), typeof(Collider2D))]
-public class Target : MonoBehaviour
+using TMPro;
+
+using UnityEngine;
+
+[RequireComponent(typeof(Health), typeof(ParticleSystem))]
+public class Target : MonoBehaviour, IDestroyable
 {
+    public TargetsSpawner Spawner { get; set; }
     public bool IsDestroying { get; private set; }
-
-    private ParticleSystem particles;
-    private SpriteRenderer spriteRenderer;
-    private Collider2D collider2d;
 
     public event System.Action Destroying;
 
+    private Health health;
+    private ParticleSystem particles;
+    private TextMeshPro healthText;
+
     private void Awake()
     {
+        health = GetComponent<Health>();
+        health.CurrentValueChanged += newValue => StartCoroutine(OnHealthCurrentValueChanged(newValue));
+
         particles = GetComponent<ParticleSystem>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        collider2d = GetComponent<Collider2D>();
+
+        healthText = GetComponentInChildren<TextMeshPro>();
+        healthText.gameObject.SetActive(false);
     }
 
-    public void Destroy()
+    private IEnumerator OnHealthCurrentValueChanged(float newValue)
     {
+        healthText.text = newValue.ToString();
+        healthText.gameObject.SetActive(true);
+
+        healthText.color = Color.red;
+        yield return new WaitForSeconds(0.125f);
+        healthText.color = Color.white;
+        yield return new WaitForSeconds(0.125f);
+        healthText.color = Color.red;
+        yield return new WaitForSeconds(0.125f);
+        healthText.color = Color.white;
+        yield return new WaitForSeconds(0.125f);
+
+        healthText.gameObject.SetActive(false);
+    }
+
+    private IEnumerator ReturnToSpawner(float time)
+    {
+        yield return new WaitForSeconds(time);
+        health.Restore();
+        healthText.gameObject.SetActive(false); 
+        IsDestroying = false;
+        Spawner.ReturnTargetToSpawner(this);
+        yield break;
+    }
+
+    public void DestroySelf()
+    {
+        ScoreManager.Instance.IncreaseScore();
+
         IsDestroying = true;
-        spriteRenderer.enabled = false;
-        collider2d.enabled = false;
         Destroying?.Invoke();
         particles.Play();
-        Destroy(gameObject, particles.main.duration + particles.main.startLifetimeMultiplier);
+
+        StartCoroutine(ReturnToSpawner(particles.main.duration));
     }
 }
