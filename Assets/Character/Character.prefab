@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 78233379660788647}
   - component: {fileID: 78233379660788643}
   - component: {fileID: 78233379660788636}
+  - component: {fileID: 1459833659346820564}
   - component: {fileID: 78233379660788632}
   - component: {fileID: 78233379660788633}
   - component: {fileID: 78233379660788639}
@@ -165,7 +166,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPoint: {fileID: 78233379985857116}
-  shootingAudioSource: {fileID: 78233379660788639}
+--- !u!114 &1459833659346820564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78233379660788646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8a1ff2ac2678849bb7ee03d5fadbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &78233379660788632
 MonoBehaviour:
   m_ObjectHideFlags: 0

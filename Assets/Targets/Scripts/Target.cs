@@ -1,30 +1,41 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 
-[RequireComponent(typeof(ParticleSystem), typeof(SpriteRenderer), typeof(Collider2D))]
+using UnityEngine;
+
+[RequireComponent(typeof(Health), typeof(ParticleSystem))]
 public class Target : MonoBehaviour, IDestroyable
 {
+    public TargetsSpawner Spawner { get; set; }
     public bool IsDestroying { get; private set; }
 
+    private Health health;
     private ParticleSystem particles;
-    private SpriteRenderer spriteRenderer;
-    private Collider2D collider2d;
 
     public event System.Action Destroying;
 
     private void Awake()
     {
+        health = GetComponent<Health>();
         particles = GetComponent<ParticleSystem>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        collider2d = GetComponent<Collider2D>();
+    }
+
+    private IEnumerator ReturnToSpawner(float time)
+    {
+        yield return new WaitForSeconds(time);
+        health.Restore();
+        IsDestroying = false;
+        Spawner.ReturnTargetToSpawner(this);
+        yield break;
     }
 
     public void DestroySelf()
     {
+        ScoreManager.Instance.IncreaseScore();
+
         IsDestroying = true;
-        spriteRenderer.enabled = false;
-        collider2d.enabled = false;
         Destroying?.Invoke();
         particles.Play();
-        Destroy(gameObject, particles.main.duration + particles.main.startLifetimeMultiplier);
+
+        StartCoroutine(ReturnToSpawner(particles.main.duration));
     }
 }

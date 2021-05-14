@@ -15,8 +15,9 @@ public class Health : MonoBehaviour
             {
                 CurrentValueChanged?.Invoke(currentValue);
 
-                if (value == 0)
+                if (value <= 0)
                 {
+                    currentValue = 0;
                     Destroy();
                 }
 
@@ -34,6 +35,11 @@ public class Health : MonoBehaviour
     {
         currentValue = maxValue;
         destroyable = GetComponent<IDestroyable>();
+    }
+
+    public void Restore()
+    {
+        currentValue = maxValue;
     }
 
     private void Destroy()

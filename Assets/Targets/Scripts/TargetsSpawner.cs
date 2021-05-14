@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+
 using UnityEngine;
 
 public class TargetsSpawner : MonoBehaviour
@@ -7,7 +9,7 @@ public class TargetsSpawner : MonoBehaviour
     [SerializeField, Range(0.5f, 3f)] private float spawningTime = 1f;
     [SerializeField, Range(1, 10)] private int spawningLimit = 5;
     private Island island;
-    private int targetsCount;
+    private Stack<Target> targets;
     private bool spawning = true;
 
     private void Start()
@@ -17,6 +19,15 @@ public class TargetsSpawner : MonoBehaviour
         {
             Debug.LogWarning($"Warning: this {nameof(TargetsSpawner)} can't find any {nameof(Island)} component to spawn {nameof(Target)}s", this);
             return;
+        }
+
+        targets = new Stack<Target>(spawningLimit);
+        for (int i = 0; i < spawningLimit; i++)
+        {
+            var instantiatedTarget = Instantiate(targetPrefab, transform.position, Quaternion.identity, transform).GetComponent<Target>();
+            instantiatedTarget.gameObject.SetActive(false);
+            instantiatedTarget.Spawner = this;
+            targets.Push(instantiatedTarget);
         }
 
         StartCoroutine(SpawnTargets());
@@ -30,18 +41,28 @@ public class TargetsSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawningTime);
 
-            if (targetsCount < spawningLimit)
+            if (targets.Count > 0)
             {
                 var x = Random.Range(islandBounds.min.x, islandBounds.max.x);
                 var y = Random.Range(islandBounds.min.y, islandBounds.max.y);
-                var spawnPosition = new Vector3(x, y, 0);
-                
-                var target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity, transform);
-                target.GetComponent<Target>().Destroying += () => targetsCount--;
-                targetsCount++;
+                GetInstantiatedTarget().transform.position = new Vector3(x, y, 0);
             }
         }
 
-        yield return null;
+        yield break;
+    }
+
+    public Target GetInstantiatedTarget()
+    {
+        var target = targets.Pop();
+        target.gameObject.SetActive(true);
+        return target;
+    }
+
+    public void ReturnTargetToSpawner(Target target)
+    {
+        target.gameObject.SetActive(false);
+        target.transform.position = transform.position;
+        targets.Push(target);
     }
 }

@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class Shooting : MonoBehaviour
 {
+    public Transform BulletSpawnPoint => weaponPoint;
+
     [SerializeField] private Transform weaponPoint;
-    [SerializeField] private AudioSource shootingAudioSource;
+    private AudioSource shootingAudioSource;
+    private BulletsHolder bulletsHolder;
+
     private bool canMakeNextShot = true;
+
+    private void Awake()
+    {
+        shootingAudioSource = GetComponent<AudioSource>();
+        bulletsHolder = GetComponent<BulletsHolder>();
+    }
 
     private void Update()
     {
@@ -59,11 +68,8 @@ public class Shooting : MonoBehaviour
         canMakeNextShot = false;
         shootingAudioSource.PlayOneShot(WeaponManager.Instance.CurrentWeapon.AudioClip);
 
-        GameObject bulletPrefab = WeaponManager.Instance.CurrentWeapon.BulletPrefab;
-        GameObject bullet = Instantiate(bulletPrefab, weaponPoint.position, weaponPoint.rotation, weaponPoint);
-        float speed = WeaponManager.Instance.CurrentWeapon.ShootingSpeed;
-        bullet.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
-        bullet.GetComponent<Rigidbody2D>().AddForce(weaponPoint.right * speed, ForceMode2D.Impulse);
+        var bullet = bulletsHolder.GetInstantiatedBullet();
+        bullet.Run(weaponPoint.right);
 
         yield return new WaitForSeconds(WeaponManager.Instance.CurrentWeapon.ShootingDelay);
         canMakeNextShot = true;
@@ -74,22 +80,20 @@ public class Shooting : MonoBehaviour
         canMakeNextShot = false;
         shootingAudioSource.PlayOneShot(WeaponManager.Instance.CurrentWeapon.AudioClip);
 
-        GameObject bulletPrefab = WeaponManager.Instance.CurrentWeapon.BulletPrefab;
-        GameObject bullet1 = Instantiate(bulletPrefab, weaponPoint.position, weaponPoint.rotation * Quaternion.Euler(0, 0, -30), weaponPoint);
-        GameObject bullet2 = Instantiate(bulletPrefab, weaponPoint.position, weaponPoint.rotation * Quaternion.Euler(0, 0, -10), weaponPoint);
-        GameObject bullet3 = Instantiate(bulletPrefab, weaponPoint.position, weaponPoint.rotation * Quaternion.Euler(0, 0, 10), weaponPoint);
-        GameObject bullet4 = Instantiate(bulletPrefab, weaponPoint.position, weaponPoint.rotation * Quaternion.Euler(0, 0, 30), weaponPoint);
+        var bullet1 = bulletsHolder.GetInstantiatedBullet();
+        var bullet2 = bulletsHolder.GetInstantiatedBullet();
+        var bullet3 = bulletsHolder.GetInstantiatedBullet();
+        var bullet4 = bulletsHolder.GetInstantiatedBullet();
 
-        float speed = WeaponManager.Instance.CurrentWeapon.ShootingSpeed;
-        bullet1.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, -30) * weaponPoint.right * speed, ForceMode2D.Impulse);
-        bullet2.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, -10) * weaponPoint.right * speed, ForceMode2D.Impulse);
-        bullet3.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, 10) * weaponPoint.right * speed, ForceMode2D.Impulse);
-        bullet4.GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, 30) * weaponPoint.right * speed, ForceMode2D.Impulse);
+        bullet1.transform.rotation = weaponPoint.rotation * Quaternion.Euler(0, 0, -30);
+        bullet2.transform.rotation = weaponPoint.rotation * Quaternion.Euler(0, 0, -10);
+        bullet3.transform.rotation = weaponPoint.rotation * Quaternion.Euler(0, 0, 10);
+        bullet4.transform.rotation = weaponPoint.rotation * Quaternion.Euler(0, 0, 30);
 
-        bullet1.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
-        bullet2.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
-        bullet3.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
-        bullet4.GetComponent<Bullet>().Damage = WeaponManager.Instance.CurrentWeapon.ShootingDamage;
+        bullet1.Run(Quaternion.Euler(0, 0, -30) * weaponPoint.right);
+        bullet2.Run(Quaternion.Euler(0, 0, -10) * weaponPoint.right);
+        bullet3.Run(Quaternion.Euler(0, 0, 10) * weaponPoint.right);
+        bullet4.Run(Quaternion.Euler(0, 0, 30) * weaponPoint.right);
 
         yield return new WaitForSeconds(WeaponManager.Instance.CurrentWeapon.ShootingDelay);
         canMakeNextShot = true;
