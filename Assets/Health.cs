@@ -13,8 +13,6 @@ public class Health : MonoBehaviour
         {
             if (currentValue != value)
             {
-                CurrentValueChanged?.Invoke(currentValue);
-
                 if (value <= 0)
                 {
                     currentValue = 0;
@@ -24,6 +22,7 @@ public class Health : MonoBehaviour
                 if (value > 0 && value <= maxValue)
                 {
                     currentValue = value;
+                    CurrentValueChanged?.Invoke(currentValue);
                 }
             }
         }
